@@ -1,59 +1,34 @@
-import {useEffect, useCallback} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import { loadData, putData } from './redux/actions';
-import {getData} from './services/api';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Button } from './components/Button';
+import { Spinner } from './components/Spinner/Spinner';
+import { Table } from './components/Table';
+import { putData } from './redux/actions';
+import { getData } from './services/api';
 
 interface RootState {
-  list: any[],
+  list: string[],
 }
 
-export const urls = ['https://reqres.in/api/users/2', 'http://jsonplaceholder.typicode.com/posts/1', 'https://api.mocki.io/v1/b043df5a']
-
 function App() {
-  const dataArray:any[] = useSelector((state:RootState) => state.list)
-
-
+  const dataArray:string[] = useSelector((state:RootState) => state.list)
+  // const dataArray: string[] = []
 
   const dispatch = useDispatch();
 
   useEffect(
     () => {
-      getData(urls)
+      getData()
         .then(results => {
           dispatch(putData(results))
         })
-    }, [dispatch])
-
-  const onClick = useCallback(
-    () => {
-      dispatch(putData([]))
-      dispatch(loadData())
-    }, [dispatch]
-  )  
+    }, [])
 
   return (
     <div className="App">
-      <button onClick={onClick}>Refresh</button>
-
-      <table>
-        <thead>
-          <tr>
-          <th className="table_heading">site</th>
-          <th className="table_heading">data</th>
-        </tr>
-        </thead>
-
-        <tbody>
-          {
-            urls.map((url, i) => {
-              return <tr key={i}>
-                <td>{url}</td>
-                <td><pre>{JSON.stringify(dataArray[i], null, 2)}</pre></td>
-              </tr>
-            })
-          }
-        </tbody>
-      </table>
+      <Button />
+      {dataArray.length > 0 ? <></>  : <Spinner /> }
+      <Table dataArray={ dataArray } />
     </div>
   );
 }

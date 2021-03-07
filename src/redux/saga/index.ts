@@ -1,10 +1,9 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
-import { urls } from '../../App';
 import { getData } from '../../services/api';
 import { LOAD_DATA, putData } from '../actions';
 
 function fetchData() {
-    return getData(urls)
+    return getData()
 }
 
 function* workerLoadData() {
