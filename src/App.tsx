@@ -12,7 +12,6 @@ interface RootState {
 
 function App() {
   const dataArray:string[] = useSelector((state:RootState) => state.list)
-  // const dataArray: string[] = []
 
   const dispatch = useDispatch();
 
