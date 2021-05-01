@@ -1,16 +1,17 @@
-import { PUT_DATA } from "../actions"
+import { PUT_DATA } from '../actions';
 
 const initialState = {
-    list: [],
-}
+  list: [],
+};
 
-export const reducer = (state = initialState, action: any) => {
-    if (action.type === PUT_DATA) {
-        return {
-            ...state, 
-            list: action.payload,
-        }
-    }
+const reducer = (state = initialState, action: any) => {
+  if (action.type === PUT_DATA) {
+    return {
+      ...state, list: action.payload,
+    };
+  }
 
-    return state;
-}
+  return state;
+};
+
+export default reducer;
